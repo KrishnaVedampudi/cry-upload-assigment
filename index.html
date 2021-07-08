@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imgur API Image Uploader</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+
+<body>
+  
+  <center>
+    <div id="center">
+      <h3 class = "btn heading col-lg-12 col-md-12 col-sm-12 col-x-12">
+        <p class="btn btn-success">Example-2 Object Detection : Sports items</p> 
+        
+        <center>
+    <div class ="heading_div2 col-lg-12 col-md-12 col-sm-12 col-x-12" style="background-color:white; border-radius:15px;box-shadow:5px 5px 5px grey; padding-bottom:10px;">         
+        <div> <h3>Note :</h3>             
+        <div class="btn btn-info">If the page got stuck or not loading canvas please wait for 30 seconds and check.</div></div>
+    </div> 
+    </center></h3>
+    <img src="https://i.imgur.com/U7afLiO.png" id="img" height="200px">
+    <br/>
+    <input class="btn btn-primary" type="file" id="file">
+    <br/>
+    <strong>
+        <p id="url"></p>
+    </strong>
+
+    <script>
+        const file = document.getElementById("file")
+        const img = document.getElementById("img")
+        const url = document.getElementById("url")
+        file.addEventListener("change", ev => {
+            const formdata = new FormData()
+            formdata.append("image", ev.target.files[0])
+            fetch("https://api.imgur.com/3/image/", {
+                method: "post",
+                headers: {
+                    Authorization: "Client-ID 9cf0d8f2f7376e8"
+                },
+                body: formdata
+            }).then(data => data.json()).then(data => {
+                img.src = data.data.link
+                url.innerText = data.data.link
+            })
+        })
+    </script>
+
+</body>
+</html>
